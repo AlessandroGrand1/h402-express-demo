@@ -29,7 +29,7 @@ const premiumRoute: RouteConfig = {
       amountRequiredFormat: "humanReadable",
       payToAddress: payTo,
       networkId: "56",
-      description: "Premium content — 0.01 USDT on BSC",
+      description: "Premium content — 0.01 USDT on BSC", //
     },
     {
       scheme: "exact",
