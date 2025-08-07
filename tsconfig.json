@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",           // emit modern JS
+    "module": "NodeNext",         // use ESM (import/export)
+    "moduleResolution": "NodeNext",
+    "rootDir": "src",             // your .ts files live here
+    "outDir": "dist",             // compiled JS ends up here
+    "strict": true,               // catch typing mistakes
+    "esModuleInterop": true,      // smooth interop w/ CommonJS libs
+    "resolveJsonModule": true     // so you can import .json if needed
+  },
+  "include": ["src"],             // only compile code in /src
+  "exclude": ["dist"]             // exclude compiled JS output
+}
+
+
+

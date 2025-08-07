@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Layer Press Demo</title>
+
+  <!-- Tailwind via CDN (no build step) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Removed custom .glass class since @apply is not supported in plain CSS -->
+</head>
+
+<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center pt-20">
+  <header class="text-center space-y-4 mb-16">
+    <h1 class="text-4xl font-extrabold">🪄 Layer Press</h1>
+    <p class="opacity-70">Read articles for a few cents – pay only for what you open.</p>
+  </header>
+
+  <main class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl px-6">
+    <!-- CARD 1 -->
+    <article class="glass">
+      <h2 class="text-2xl font-bold mb-3">Why Layers Matter</h2>
+      <p class="opacity-80 mb-6">OSI layers explained for LLM devs.</p>
+    <article class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
+      <h2 class="text-2xl font-bold mb-3">Why Layers Matter</h2>
+      <p class="opacity-80 mb-6">OSI layers explained for LLM devs.</p>
+      <a href="/article/why-layers" class="inline-block bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg font-semibold">Read – $0.01</a>
+    </article>
+      <h2 class="text-2xl font-bold mb-3">Solana vs EVM</h2>
+      <p class="opacity-80 mb-6">Fee-per-call showdown.</p>
+    <article class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
+      <h2 class="text-2xl font-bold mb-3">Solana vs EVM</h2>
+      <p class="opacity-80 mb-6">Fee-per-call showdown.</p>
+      <a href="/article/sol-vs-evm" class="inline-block bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg font-semibold">Read – $0.01</a>
+    </article>
+    Demo powered by <a class="underline" href="https://github.com/bit-gpt/h402-express">H-402</a>.
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+{
+  "name": "h402-express-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "tsx client/fetchDemo.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bit-gpt/h402-express": "^0.0.1",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.0",
+    "@types/node-fetch": "^2.6.13",
+    "autoprefixer": "^10.4.21",
+    "node-fetch": "^3.3.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
