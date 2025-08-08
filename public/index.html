@@ -1,40 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Layer Press Demo</title>
+  <title>Layer Press • Pay-per-call Reading, Redefined</title>
+  <meta name="description" content="Unlock deep-dive articles for just a few cents per read. No subscriptions, no commitments. Powered by H-402 Express." />
 
-  <!-- Tailwind via CDN (no build step) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Removed custom .glass class since @apply is not supported in plain CSS -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              950: '#0c0c0f',
+              900: '#121217',
+              800: '#1a1a21',
+              700: '#2d2d38',
+              '300/10': 'rgba(203, 213, 225, 0.1)',
+              '50/10': 'rgba(248, 250, 252, 0.1)'
+            },
+            brand: { 500: '#5E5CE6', 600: '#4744C9' } // A more vibrant purple, akin to Linear
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            card: '0px 0px 0px 1px rgba(255, 255, 255, 0.04) inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 4px 16px 0px rgba(0, 0, 0, 0.4)',
+            glow: '0 0 16px -2px rgba(94, 92, 230, 0.4)'
+          },
+          animation: {
+            aurora: 'aurora 60s infinite linear'
+          },
+          keyframes: {
+            aurora: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' }
+            }
+          }
+        }
+      },
+      plugins: [
+        function({ addComponents, theme }) {
+          addComponents({
+            '.glass-card': {
+              backgroundColor: 'rgba(18, 18, 23, 0.6)', // bg-slate-900 with alpha
+              backdropFilter: 'blur(24px)',
+              boxShadow: theme('boxShadow.card'),
+              border: `1px solid ${theme('colors.slate.300/10')}`,
+              borderRadius: theme('borderRadius.2xl'),
+              transition: 'transform .3s, box-shadow .3s, border-color .3s',
+            },
+            '.glass-card:hover': {
+              transform: 'translateY(-4px)',
+              boxShadow: theme('boxShadow.glow'),
+              borderColor: 'rgba(94, 92, 230, 0.3)'
+            },
+            '.btn': {
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: `${theme('spacing.2')} ${theme('spacing.4')}`,
+              borderRadius: theme('borderRadius.md'),
+              fontWeight: theme('fontWeight.semibold'),
+              transition: 'all .2s'
+            },
+            '.btn-primary': {
+              backgroundColor: theme('colors.brand.500'),
+              color: theme('colors.white'),
+              boxShadow: `0 4px 8px ${theme('colors.brand.500')}33, 0 1px 2px ${theme('colors.brand.500')}55`,
+            },
+            '.btn-primary:hover': {
+              backgroundColor: theme('colors.brand.600'),
+              transform: 'translateY(-1px)',
+              boxShadow: `0 6px 12px ${theme('colors.brand.500')}44, 0 2px 3px ${theme('colors.brand.500')}66`,
+            },
+            '.btn-secondary': {
+               backgroundColor: theme('colors.slate.50/10'),
+               border: `1px solid ${theme('colors.slate.300/10')}`,
+            },
+            '.btn-secondary:hover': {
+              backgroundColor: 'rgba(248, 250, 252, 0.15)',
+              borderColor: 'rgba(203, 213, 225, 0.2)',
+            }
+          })
+        }
+      ]
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 15% 30%, rgba(94, 92, 230, 0.15), transparent 40%),
+                  radial-gradient(circle at 85% 70%, rgba(37, 99, 235, 0.15), transparent 40%);
+      background-size: 200% 200%;
+      z-index: 0;
+      animation: aurora 20s infinite alternate;
+    }
+  </style>
 </head>
 
-<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center pt-20">
-  <header class="text-center space-y-4 mb-16">
-    <h1 class="text-4xl font-extrabold">🪄 Layer Press</h1>
-    <p class="opacity-70">Read articles for a few cents – pay only for what you open.</p>
-  </header>
+<body class="h-full bg-slate-950 font-sans text-slate-200 antialiased overflow-x-hidden">
+  <div class="relative z-10 flex flex-col h-full">
 
-  <main class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl px-6">
-    <!-- CARD 1 -->
-    <article class="glass">
-      <h2 class="text-2xl font-bold mb-3">Why Layers Matter</h2>
-      <p class="opacity-80 mb-6">OSI layers explained for LLM devs.</p>
-    <article class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
-      <h2 class="text-2xl font-bold mb-3">Why Layers Matter</h2>
-      <p class="opacity-80 mb-6">OSI layers explained for LLM devs.</p>
-      <a href="/article/why-layers" class="inline-block bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg font-semibold">Read – $0.01</a>
-    </article>
-      <h2 class="text-2xl font-bold mb-3">Solana vs EVM</h2>
-      <p class="opacity-80 mb-6">Fee-per-call showdown.</p>
-    <article class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
-      <h2 class="text-2xl font-bold mb-3">Solana vs EVM</h2>
-      <p class="opacity-80 mb-6">Fee-per-call showdown.</p>
-      <a href="/article/sol-vs-evm" class="inline-block bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg font-semibold">Read – $0.01</a>
-    </article>
-    Demo powered by <a class="underline" href="https://github.com/bit-gpt/h402-express">H-402</a>.
-  </footer>
+    <header class="sticky top-0 z-20 flex items-center justify-between px-4 sm:px-8 py-4 border-b border-slate-300/10 bg-slate-950/50 backdrop-blur-lg">
+      <h1 class="text-lg font-bold">
+        <a href="#">Layer Press</a>
+      </h1>
+      <nav class="hidden sm:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+        <a href="#articles" class="hover:text-white transition-colors">Articles</a>
+        <a href="https://github.com/bit-gpt/h402-express" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+      </nav>
+      <a href="#articles" class="btn btn-secondary text-sm">
+        Sign In
+      </a>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center px-4 text-center">
+      <div class="w-full max-w-6xl mx-auto flex flex-col gap-24 sm:gap-32 my-24 sm:my-32">
+
+        <section id="hero" class="flex flex-col items-center gap-6">
+          <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter max-w-3xl leading-tight">
+            Pay-per-call Reading,
+            <span class="bg-gradient-to-b from-slate-100 to-slate-400 bg-clip-text text-transparent">Redefined</span>
+          </h2>
+          <p class="text-lg text-slate-400 max-w-xl">
+            Only pay a few cents to unlock each deep-dive—no subscriptions, no wasted clicks.
+          </p>
+          <div class="flex items-center gap-4 mt-2">
+            <a href="#articles" class="btn btn-primary text-base">
+              Explore Articles
+            </a>
+            <a href="#how-it-works" class="btn btn-secondary text-base">
+              Learn More
+            </a>
+          </div>
+        </section>
+
+        <section id="how-it-works" class="max-w-3xl mx-auto w-full">
+          <h3 class="text-3xl font-bold mb-8">How It Works</h3>
+          <ol class="flex flex-col md:flex-row justify-center gap-6 text-left text-sm">
+            <li class="glass-card p-6 flex-1 hover:!transform-none hover:!shadow-card">
+              <strong class="text-brand-500 font-semibold text-lg block mb-2">1. Request</strong>
+              <p class="text-slate-400">Click “Read” and the server returns a <code class="bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded-md text-xs font-mono border border-slate-700">402</code> status with payment details.</p>
+            </li>
+            <li class="glass-card p-6 flex-1 hover:!transform-none hover:!shadow-card">
+              <strong class="text-brand-500 font-semibold text-lg block mb-2">2. Pay</strong>
+              <p class="text-slate-400">Your client "pays" the micro-fee on-chain (or via demo header) and retries the request automatically.</p>
+            </li>
+            <li class="glass-card p-6 flex-1 hover:!transform-none hover:!shadow-card">
+              <strong class="text-brand-500 font-semibold text-lg block mb-2">3. Receive</strong>
+              <p class="text-slate-400">The server verifies the payment and instantly serves the full, unlocked article HTML. </p>
+            </li>
+          </ol>
+           <p class="text-center mt-6 text-slate-500 text-sm">Powered by the <a href="https://github.com/bit-gpt/h402-express" class="text-slate-400 hover:text-white underline decoration-slate-500 underline-offset-2 transition-colors">H-402 Express</a> middleware.</p>
+        </section>
+
+        <section id="articles" class="w-full">
+          <h3 class="text-3xl font-bold mb-10">Featured Reads</h3>
+          <div class="grid gap-8 sm:grid-cols-2 max-w-4xl mx-auto">
+            <article class="glass-card p-8 flex flex-col text-left">
+              <span class="text-xs font-semibold uppercase text-brand-500 mb-2 tracking-wider">New</span>
+              <h4 class="text-xl font-bold mb-3 text-slate-50">Why Layers Matter</h4>
+              <p class="flex-1 text-slate-400 mb-6 text-sm">An essential breakdown of the OSI model and its modern relevance for Large Language Model developers.</p>
+              <a href="/article/why-layers" class="btn btn-secondary mt-auto self-start">
+                Read – $0.01
+              </a>
+            </article>
+
+            <article class="glass-card p-8 flex flex-col text-left">
+              <span class="text-xs font-semibold uppercase text-brand-500 mb-2 tracking-wider">Hot</span>
+              <h4 class="text-xl font-bold mb-3 text-slate-50">Solana vs EVM</h4>
+              <p class="flex-1 text-slate-400 mb-6 text-sm">A technical showdown comparing fee-per-call mechanics and developer experience on two leading blockchains.</p>
+              <a href="/article/sol-vs-evm" class="btn btn-secondary mt-auto self-start">
+                Read – $0.01
+              </a>
+            </article>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="text-center w-full px-8 py-6 mt-auto border-t border-slate-300/10">
+      <p class="text-sm text-slate-500">
+        Demo built with <a href="https://github.com/bit-gpt/h402-express" target="_blank" class="text-slate-400 hover:text-white underline decoration-slate-500 underline-offset-2 transition-colors">H-402 Express</a>
+      </p>
+    </footer>
+
+  </div>
 </body>
 </html>
-

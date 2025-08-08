@@ -1,1 +1,135 @@
-SOlana 
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Layer Press • Solana vs EVM</title>
+  <meta name="description" content="A technical showdown comparing the architecture, developer experience, and transaction models of Solana and the EVM." />
+
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // A richer, blue-tinged dark palette
+            slate: {
+              950: '#0B1120', // Background color
+              900: '#111827',
+              800: '#1f2937',
+              700: '#374151',
+              600: '#4b5563',
+              500: '#6b7280',
+              400: '#9ca3af',
+              300: '#d1d5db',
+              200: '#e5e7eb',
+              100: '#f1f5f9',
+              50: '#f8fafc',
+            },
+            brand: { 
+              400: '#8A88FF', // Slightly brighter for links within prose
+              500: '#5E5CE6'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+           typography: (theme) => ({
+            DEFAULT: {
+              css: {
+                '--tw-prose-body': theme('colors.slate[400]'),
+                '--tw-prose-headings': theme('colors.slate[100]'), // Brighter headings
+                '--tw-prose-lead': theme('colors.slate[400]'),
+                '--tw-prose-links': theme('colors.brand[400]'),
+                '--tw-prose-bold': theme('colors.slate[200]'),
+                '--tw-prose-hr': theme('colors.slate[800]'),
+                '--tw-prose-quotes': theme('colors.slate[200]'),
+                '--tw-prose-quote-borders': theme('colors.slate[700]'),
+                '--tw-prose-code': theme('colors.brand[400]'),
+                '--tw-prose-pre-bg': 'rgba(31, 41, 55, 0.5)', // bg-slate-800 with transparency
+              },
+            },
+          }),
+          animation: {
+            aurora: 'aurora 60s infinite linear'
+          },
+          keyframes: {
+            aurora: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' }
+            }
+          }
+        }
+      },
+      plugins: [
+        require('@tailwindcss/typography')
+      ]
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 25% 35%, rgba(94, 92, 230, 0.1), transparent 40%),
+                  radial-gradient(circle at 75% 65%, rgba(37, 99, 235, 0.08), transparent 40%);
+      background-size: 150% 150%;
+      z-index: 0;
+      animation: aurora 30s infinite alternate;
+      will-change: background-position;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 font-sans text-slate-300 antialiased">
+  <div class="relative z-10 flex flex-col min-h-full">
+
+    <main class="flex-grow w-full max-w-3xl mx-auto px-6 pt-24 sm:pt-32 lg:pt-40 pb-16">
+      <article class="prose prose-lg lg:prose-xl prose-invert">
+        <h1 class="text-4xl !leading-tight font-extrabold tracking-tight text-slate-50 sm:text-5xl">Solana vs EVM</h1>
+
+        <p class="lead mt-6">
+          In the world of smart contracts, two titans dominate the conversation: Solana, the high-performance challenger, and the EVM (Ethereum Virtual Machine), the established and widely-adopted standard. For developers, choosing between them is a critical decision that impacts performance, cost, and tooling. This is not just a choice of blockchain, but a fundamental choice of architecture and development philosophy.
+        </p>
+        
+        <p>
+          While both enable decentralized applications, they take radically different approaches to achieve their goals. Understanding these differences is key to selecting the right tool for the job.
+        </p>
+        
+        <h2 class="!mt-16 !mb-6 !text-3xl !font-bold !tracking-tight text-slate-100">The Core Difference: Parallel vs. Sequential</h2>
+        <p>
+          The most crucial distinction lies in how they process transactions. The <strong>EVM is single-threaded</strong>. It processes transactions one by one in a sequential order. This makes development simpler and reasoning about state changes more straightforward, but it’s a natural bottleneck. When the network is busy, a queue forms, and users must pay higher "gas" fees to get their transactions processed.
+        </p>
+        <p>
+          <strong>Solana, by contrast, is multi-threaded</strong>, designed for parallel execution. Through a system called Sealevel, Solana can process tens of thousands of non-overlapping transactions simultaneously. This parallel architecture, combined with its unique Proof-of-History (PoH) timing mechanism, allows for massive throughput and is the engine behind Solana's claim to hyperspeed.
+        </p>
+
+        <h2 class="!mt-16 !mb-6 !text-3xl !font-bold !tracking-tight text-slate-100">Developer Experience and Language</h2>
+        <p>
+          The EVM’s greatest strength is its incumbency. <strong>Solidity</strong>, its primary language, has a massive ecosystem of developers, tutorials, and battle-tested libraries like OpenZeppelin. Frameworks like Hardhat and Foundry are mature, making the development and testing lifecycle familiar to millions.
+        </p>
+        <p>
+          Solana development primarily uses <strong>Rust</strong>, a powerful but more complex systems-level language. While Rust offers fine-grained control and performance, its learning curve is significantly steeper than Solidity's. The Solana ecosystem is younger, but tools like the Anchor framework are rapidly maturing to abstract away much of Rust's complexity for blockchain development.
+        </p>
+
+        <h2 class="!mt-16 !mb-6 !text-3xl !font-bold !tracking-tight text-slate-100">Transaction Models: Gas vs. Rent</h2>
+        <p>
+          On EVM chains, every computational step requires a "gas" fee, which can fluctuate dramatically based on network congestion. This model is well-understood but can lead to exorbitant costs during periods of high demand.
+        </p>
+        <p>
+          Solana uses a different model. While it has low, deterministic transaction fees, it also introduces the concept of <strong>rent</strong>. To store data on the Solana blockchain, your account must maintain a minimum balance to pay for that storage over time. If the balance drops to zero, the data may be purged. This approach incentivizes efficient state usage but requires developers to manage account balances, a concept foreign to most EVM developers.
+        </p>
+      </article>
+    </main>
+
+    <footer class="text-center w-full px-8 py-16">
+      <p class="text-sm text-slate-500">
+        &copy; 2025 Layer Press. All rights reserved.
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
